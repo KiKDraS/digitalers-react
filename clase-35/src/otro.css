@@ -1,0 +1,10 @@
+.card {
+    background-color: red;
+}
+
+/*
+    BEM
+        -> Block - Nombre del Componente
+        -> Element 
+        -> Modifier - Nombre del Estilo modificado
+*/
