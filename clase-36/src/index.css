@@ -1,0 +1,43 @@
+:root {
+  --text-color: rgb(80, 80, 80);
+  --title-color: rgb(29, 29, 29);
+  --bg-gray: rgb(168, 168, 168);
+  --bg-white: rgb(255, 253, 253);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 100dvw;
+  height: 100dvh;
+  background-color: var(--bg-gray);
+  overflow: hidden auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.roboto-regular {
+  font-family: "Roboto", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: "Roboto", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-thin {
+  font-family: "Roboto", system-ui;
+  font-weight: 100;
+  font-style: normal;
+}
