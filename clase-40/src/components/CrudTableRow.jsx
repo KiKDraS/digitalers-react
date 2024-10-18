@@ -1,10 +1,8 @@
-import React from "react";
-
 /*
     Se va a encargar de agregar la fila para cada dato y unos botones que permitan indicar que se quiere actualizar/borrar el dato
 */
 
-export const CrudTableRow = ({ el, setCharacterToEdit }) => {
+export const CrudTableRow = ({ el, setCharacterToEdit, deleteCharacter }) => {
   const { name, house, id } = el;
 
   return (
@@ -18,7 +16,7 @@ export const CrudTableRow = ({ el, setCharacterToEdit }) => {
         >
           Editar
         </button>
-        <button className="btn btn-danger" onClick={() => {}}>
+        <button className="btn btn-danger" onClick={() => deleteCharacter(id)}>
           Eliminar
         </button>
       </td>

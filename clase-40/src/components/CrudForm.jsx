@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 /*
     Se va a encargar de obtener los datos para poder crear/actualizar
@@ -10,12 +10,26 @@ const initialState = {
   id: null,
 };
 
-export const CrudForm = ({ characterToEdit, createCharacter }) => {
+export const CrudForm = ({
+  characterToEdit,
+  setCharacterToEdit,
+  createCharacter,
+  updateCharacter,
+}) => {
   const [form, setForm] = useState(initialState);
+
+  useEffect(() => {
+    if (characterToEdit) setForm(characterToEdit);
+    else setForm(initialState);
+  }, [characterToEdit]); // El efecto se ejecuta la primera vez que se monta el componente y cuando cambia el valor almacenado en characterToEdit
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createCharacter(form);
+
+    if (form.id) updateCharacter(form);
+    else createCharacter(form);
+
+    handleReset();
   };
 
   const handleChange = (e) => {
@@ -25,7 +39,10 @@ export const CrudForm = ({ characterToEdit, createCharacter }) => {
     }));
   };
 
-  const handleReset = () => {};
+  const handleReset = () => {
+    setForm(initialState);
+    setCharacterToEdit(null);
+  };
 
   return (
     <div className="mb-4">

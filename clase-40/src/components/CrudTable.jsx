@@ -1,11 +1,14 @@
-import React from "react";
 import { CrudTableRow } from "./CrudTableRow";
 
 /*
     Se va a encargar de mostrar (leer) los datos
 */
 
-export const CrudTable = ({ characters, setCharacterToEdit }) => {
+export const CrudTable = ({
+  characters,
+  setCharacterToEdit,
+  deleteCharacter,
+}) => {
   return (
     <div>
       <h3>Tabla de Datos</h3>
@@ -24,6 +27,7 @@ export const CrudTable = ({ characters, setCharacterToEdit }) => {
                 key={el.id}
                 el={el}
                 setCharacterToEdit={setCharacterToEdit}
+                deleteCharacter={deleteCharacter}
               />
             ))
           ) : (
