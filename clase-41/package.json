@@ -1,5 +1,5 @@
 {
-  "name": "clase-39",
+  "name": "clase-41",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,8 +13,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.27.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
