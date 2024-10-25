@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <p>
+            Clicked: <span id="value"></span> times
+            <button id="increment">+</button>
+            <button id="decrement">-</button>
+        </p>
+    </div>
+
+    <script type="module">
+        import * as Redux from 'https://unpkg.com/redux@latest/dist/redux.browser.mjs'
+
+        /*
+            Tres principios de Redux
+                => Una sola fuente de la verdad: El store
+                => El state debe respetar el Principio de Inmutabilidad
+                    -> No modificar el valor original. Crear una copia modificada
+                => Los cambios se hacen mediante funciones puras (reducer)
+                    -> Funciones que no modifican valores que no le pertenecen y retornan un valor. Para el mismo valor de entrada, retorna el mismo valor de salida
+
+            Conceptos clave
+                => Store - Contiene todos los state que necesita la app
+                => Actions - Objetos planos de JavaScript (POJO - Plain Old Javascript Object). Se usa para describir cómo tiene cambiar el state
+                    -> {type: "", payload: ""}
+                    -> type: La acción que se está realizando
+                    -> payload(opcional): Los datos que se necesitan para cambiar el state
+                => Dispatch - Función que recibe el action y ejecuta el reducer
+                => Reducers - Funciones puras que reciben el estado anterior y el action y retornan el nuevo estado      
+                    -> Si no existe estado anterior. La app se rompe
+
+            Flujo de Trabajo de Redux
+                => 1.- Crear el Store
+                    -> 1.a - Definir el reducer
+                => 2.- Crear el Action
+                => 3.- Dispatch de Action    
+        */
+
+        // { type: "INCREMENT" } - { type: "DECREMENT" }
+        // Actions type
+        const INCREMENT = 'INCREMENT';
+        const DECREMENT = 'DECREMENT'
+
+        // Action Creator - Función que retorna el objeto Action que necesitamos
+        function incrementAction() {
+            return { type: INCREMENT }
+        }
+
+        function decrementAction(payload) {
+            return { type: DECREMENT, payload }
+        }
+
+        // Definir el reducer
+        function counterReducer(state, action) {
+            // Cuando la app arranca por primera vez, el state es undefined (no hay state anterior)
+            if (typeof state === 'undefined') {
+                return 0
+            }
+
+            // { type: DECREMENT, payload: 10 }
+            switch (action.type) {
+                case INCREMENT:
+                    return state + 1
+                case DECREMENT:
+                    return state - action.payload
+                default:
+                    return state
+            }
+        }
+
+
+        // Crear el Store
+        const store = Redux.createStore(counterReducer);
+
+        // Renderizar el valor en el HTML
+        const valueElement = document.getElementById('value');
+
+        function render() {
+            valueElement.innerHTML = store.getState().toString();
+        }
+
+        // Mostrar valor inicial
+        render();
+
+        // Actualizar la vista cuando cambia el valor de state (subscribe ejecuta render cuando se modifica el state)
+        store.subscribe(render);
+
+
+        // Agregar listeners para realizar el dispatch de las actions
+        const incrementButton = document.getElementById('increment');
+        const decrementButton = document.getElementById('decrement');
+
+
+        incrementButton.addEventListener('click', () => {
+            // Quiero que ejecutes el counterReducer con el action { type: INCREMENT }
+            // store.dispatch({ type: INCREMENT });
+            store.dispatch(incrementAction());
+        });
+
+        decrementButton.addEventListener('click', async () => {
+            const num = Math.round(Math.random() * 10);
+
+            // Quiero que ejecutes el counterReducer con el action { type: DECREMENT }
+            // store.dispatch({ type: DECREMENT, payload: num });
+            store.dispatch(decrementAction(num));
+        });
+
+    </script>
+</body>
+
+</html>
