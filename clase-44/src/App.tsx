@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import logo from "./assets/react.svg";
 import { TaskForm } from "./components/TaskForm";
 import { TaskList } from "./components/TaskList";
+import { TasksContext } from "./contexts/TaskContext";
 
-export const App = (): JSX.Element => {
+export const App = ({ title = "Default title" }: Props): JSX.Element => {
+  const { tasks } = useContext(TasksContext);
+
   return (
     <div className="bg-dark" style={{ height: "100vh" }}>
       <nav className="navbar navbar-dark bg-primary">
@@ -14,7 +18,7 @@ export const App = (): JSX.Element => {
               style={{ width: "2.5rem" }}
               className="mw-25"
             />
-            Aplicación TypeScript
+            {title}
           </a>
         </div>
       </nav>
@@ -27,7 +31,8 @@ export const App = (): JSX.Element => {
           <div className="col-md-8">
             <div className="row">
               <h6 className="text-light d-flex justify-content-end">
-                Total Tasks <span className="badge bg-primary ms-2">0</span>
+                Total Tasks{" "}
+                <span className="badge bg-primary ms-2">{tasks.length}</span>
               </h6>
 
               <TaskList />
@@ -38,3 +43,7 @@ export const App = (): JSX.Element => {
     </div>
   );
 };
+
+interface Props {
+  title?: string;
+}
